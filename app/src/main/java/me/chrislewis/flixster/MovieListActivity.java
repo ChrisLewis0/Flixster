@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import me.chrislewis.flixster.models.Movie;
+import me.chrislewis.flixster.models.Config;
 
 public class MovieListActivity extends AppCompatActivity {
 
@@ -32,16 +33,14 @@ public class MovieListActivity extends AppCompatActivity {
 
     // instance fields
     AsyncHttpClient client;
-    // base url for posters
-    String imageBaseUrl;
-    // poster size to use when fetching images, part of url;
-    String posterSize;
     // list of currently playing movies
     ArrayList<Movie> movies;
     // the recycler view
     RecyclerView rvMovies;
     // the adapter wired to the recycler view
     MovieAdapter adapter;
+    // image config
+    Config config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,14 +111,12 @@ public class MovieListActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    JSONObject images = response.getJSONObject("images");
-                    // get the image base url
-                    imageBaseUrl = images.getString("secure_base_url");
-                    // get poster size
-                    JSONArray posterSizeOptions = images.getJSONArray("poster_sizes");
-                    // get w342 size
-                    posterSize = posterSizeOptions.optString(3, "w342");
-                    Log.i(TAG, String.format("Loaded configuration with imageBaseUrl %s and posterSize %s", imageBaseUrl, posterSize));
+                    config = new Config(response);
+                    Log.i(TAG, String.format("Loaded configuration with imageBaseUrl %s and posterSize %s",
+                            config.getImageBaseUrl(),
+                            config.getPosterSize()));
+                    // pass config to adapter
+                    adapter.setConfig(config);
                 } catch (JSONException e) {
                     logError("Failed to parse JSON",  e, true);
                 }
