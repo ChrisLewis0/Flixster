@@ -28,7 +28,8 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-![Walkthrough](flixster_portrait)
+![Walkthrough](flixster_portrait.gif)
+![Walkthrough](flixster_landscape.gif)
 
 ## Notes
 
