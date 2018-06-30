@@ -6,10 +6,13 @@ import org.json.JSONObject;
 public class Movie {
 
     // values from API
-    private String title;
-    private String overview;
-    private String posterPath; // only path to poster
-    private String backdropPath;
+    String title;
+    String overview;
+    String posterPath; // only path to poster
+    String backdropPath;
+
+    // no-arg constructor, for using Parcelable
+    public Movie() {}
 
     // initialize from JSON object
     public Movie(JSONObject object) throws JSONException {

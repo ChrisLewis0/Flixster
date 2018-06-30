@@ -94,8 +94,10 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
         return movies.size();
     }
 
+    // class cannot be static
+    // implements View.OnClickListener
     // create the viewholder as a static inner class
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
         // track view objects
         ImageView ivPosterImage;
